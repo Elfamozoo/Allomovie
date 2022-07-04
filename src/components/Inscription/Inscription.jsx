@@ -4,6 +4,7 @@ import {
 	registerWithEmailAndPassword,
 	signInWithGoogle,
 } from '../../firebase.config';
+import { FcGoogle } from 'react-icons/fc';
 
 const Inscription = () => {
 	/* C'est un hook qui vous permet de gérer l'état de votre formulaire. */
@@ -27,105 +28,80 @@ const Inscription = () => {
 		},
 	});
 
-	
-
 	return (
 		<>
-			<button
-				ClassName='block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
-				type='button'
-				data-modal-toggle='authentication-modal'>
-				Toggle modal
-			</button>
-			<div
-				id='authentication-modal'
-				tabindex='-1'
-				aria-hidden='true'
-				ClassName='hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full'>
-				<div ClassName='relative p-4 w-full max-w-md h-full md:h-auto'>
-					<div ClassName='relative bg-white rounded-lg shadow dark:bg-gray-700'>
-						<button
-							type='button'
-							ClassName='absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white'
-							data-modal-toggle='authentication-modal'>
-							
-						</button>
-						<div ClassName='py-6 px-6 lg:px-8'>
-							<h3 ClassName='mb-4 text-xl font-medium text-gray-900 dark:text-white'>
-								Inscrivez vous sur Allomovie
-							</h3>
-							<form
-								ClassName='space-y-6'
-								action='#'
-								onSubmit={form.onSubmit((values) =>
-									registerWithEmailAndPassword(
-										values.login,
-										values.email,
-										values.password
-									)
-								)}>
-								<div>
-									<label
-										for='login'
-										ClassName='block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300'>
-										Votre pseudo
-									</label>
-									<input
-										type='text'
-										id='login'
-										ClassName='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white'
-										placeholder='pseudo'
-										{...form.getInputProps('login')}
-										required
-									/>
-								</div>
-								<div>
-									<label
-										for='email'
-										ClassName='block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300'>
-										Votre email
-									</label>
-									<input
-										type='email'
-										id='email'
-										ClassName='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white'
-										placeholder='tonmail@email.com'
-										{...form.getInputProps('email')}
-										required
-									/>
-								</div>
-								<div>
-									<label
-										for='password'
-										ClassName='block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300'>
-										Votre password
-									</label>
-									<input
-										type='password'
-										id='password'
-										placeholder='••••••••'
-										ClassName='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white'
-										{...form.getInputProps('password')}
-										required
-									/>
-								</div>
-
-								<button
-									type='submit'
-									ClassName='w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
-									S'inscrire
-								</button>
-								<button
-									onClick={signInWithGoogle}
-									type='submit'
-									ClassName='w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
-									Google
-								</button>
-							</form>
-						</div>
+			<div class='bg-white rounded px-8 pt-6 pb-8 mb-4 flex flex-col'>
+				<form
+					ClassName='space-y-6'
+					action='#'
+					onSubmit={form.onSubmit((values) =>
+						registerWithEmailAndPassword(
+							values.login,
+							values.email,
+							values.password
+						)
+					)}>
+					<div class='mb-4'>
+						<label
+							class='block text-grey-darker text-sm font-bold mb-2'
+							for='login'>
+							Email
+						</label>
+						<input
+							class='shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker'
+							id='email'
+							type='email'
+							placeholder='tonmail@email.com'
+							{...form.getInputProps('email')}
+							required
+						/>
 					</div>
-				</div>
+					<div class='mb-4'>
+						<label
+							class='block text-grey-darker text-sm font-bold mb-2'
+							for='login'>
+							Pseudo
+						</label>
+						<input
+							class='shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker'
+							id='login'
+							type='text'
+							placeholder='pseudo'
+							{...form.getInputProps('login')}
+							required
+						/>
+					</div>
+					<div class='mb-6'>
+						<label
+							class='block text-grey-darker text-sm font-bold mb-2'
+							for='password'>
+							Mot de passe
+						</label>
+						<input
+							class='shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3'
+							id='password'
+							type='password'
+							placeholder='••••••••'
+							{...form.getInputProps('password')}
+							required
+						/>
+					</div>
+					<div class='flex items-center justify-between'>
+						<button
+							class='text-sm leading-5 text-center text-white transition-colors bg-gray-500 hover:bg-blue-600 font-bold py-2 px-4 rounded'
+							type='submit'>
+							S'inscrire
+						</button>
+						<button
+							onClick={signInWithGoogle}
+							class='text-3xl leading-5 text-center text-white-500 transition-colors bg-white-500 hover:bg-blue-600 font-bold py-2 px-4 rounded'
+							type='submit'>
+							<FcGoogle />
+						</button>
+					</div>
+				</form>
 			</div>
+			;
 		</>
 	);
 };
