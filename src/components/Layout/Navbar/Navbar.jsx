@@ -28,13 +28,13 @@ const Navbar = () => {
 										className=' text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'>
 										Accueil
 									</Link>
-									{authed ? (
+									{authed && (
 										<Link
 											to='/favoris'
 											className='text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'>
 											Favoris
 										</Link>
-									) : null}
+									)}
 									<LoginControl />
 									<Link
 										class='block w-1/2 px-3 py-2 mx-1 text-sm font-medium leading-5 text-center text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-600 md:mx-0 md:w-auto'
@@ -84,7 +84,7 @@ const Navbar = () => {
 								) : null}
 								<LoginControl />
 								<Link
-									class='block w-1/2 px-3 py-2 mx-1 text-sm font-medium leading-5 text-center text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-600 md:mx-0 md:w-auto'
+									className='block w-1/2 px-3 py-2 mx-1 text-sm font-medium leading-5 text-center text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-600 md:mx-0 md:w-auto'
 									to='/inscription'>
 									inscription
 								</Link>
