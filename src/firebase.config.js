@@ -1,14 +1,12 @@
-
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { useNavigate } from 'react-router-dom';
 import {
     GoogleAuthProvider,
     getAuth,
     signInWithPopup,
-    signInWithEmailAndPassword,
     createUserWithEmailAndPassword,
     sendPasswordResetEmail,
-    signOut,
 } from "firebase/auth";
 import {
     getFirestore,
@@ -18,8 +16,6 @@ import {
     where,
     addDoc,
 } from "firebase/firestore";
-
-
 
 
 const firebaseConfig = {
@@ -32,10 +28,9 @@ const firebaseConfig = {
     measurementId: `${import.meta.env.VITE_APP_FIREBASE_MEASUREMENT_ID}`
 };
 
-
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-const auth = getAuth(app);
+export const auth = getAuth(app);
 const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
 
@@ -85,24 +80,6 @@ export const registerWithEmailAndPassword = async (login, email, password) => {
         console.error(err);
         alert(err.message);
     }
-
-};
-
-
-/**
- * Il prend un e-mail et un mot de passe, puis il essaie de se connecter avec ces informations
- * d'identification. En cas d'échec, il consigne l'erreur et alerte l'utilisateur.
- * @param email - L'adresse e-mail de l'utilisateur.
- * @param password - Le mot de passe de l'utilisateur.
- */
-export const logInWithEmailAndPassword = async (email, password) => {
-    try {
-        await signInWithEmailAndPassword(auth, email, password);
-        alert("Connexion reussie ! ");
-    } catch (err) {
-        console.error(err);
-        alert(err.message);
-    }
 };
 
 /**
@@ -117,12 +94,4 @@ export const sendPasswordReset = async (email) => {
         console.error(err);
         alert(err.message);
     }
-};
-
-/**
- * La fonction logout est une fonction qui appelle la fonction signOut, qui est une fonction qui prend
- * l'objet auth comme argument.
- */
-export const logout = () => {
-    signOut(auth);
 };

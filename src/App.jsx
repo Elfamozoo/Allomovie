@@ -6,6 +6,7 @@ import Home from './components/Layout/Home/Home';
 import Footer from './components/Layout/Footer/Footer';
 import Inscription from './components/Inscription/Inscription';
 import Connexion from './components/Connexion/Connexion';
+import Favoris from './components/Favoris/Favoris';
 
 function App() {
 	let element = useRoutes([
@@ -20,6 +21,10 @@ function App() {
 		{
 			path: '/connexion',
 			element: <Connexion />,
+		},
+		{
+			path: '/favoris',
+			element: <Favoris />,
 		},
 	]);
 

@@ -1,77 +1,65 @@
 import React from 'react';
-import {
-	logInWithEmailAndPassword,
-	signInWithGoogle,
-} from '../../firebase.config';
 import { useForm } from '@mantine/form';
-import { useNavigate } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
+import { useAuth } from '../../services/AuthProvider';
 
 const Connexion = () => {
-	// firebase.auth().onAuthStateChanged((user) => {
-	// 	let navigate = useNavigate();
-	// 	if (user) {
-	// 		navigate('/');
-	// 	}
-	// });
+	const { login, loginWithGoogle } = useAuth();
 
 	const form = useForm({
 		initialValues: {
-			login: '',
+			email: '',
 			password: '',
 		},
 	});
 
 	return (
 		<>
-			<div class='bg-white rounded px-8 pt-6 pb-8 mb-4 flex flex-col'>
+			<div className='bg-white rounded px-8 pt-6 pb-8 mb-4 flex flex-col'>
 				<form
-					ClassName='space-y-6'
-					action='#'
-					onSubmit={form.onSubmit((values) =>
-						logInWithEmailAndPassword(
-							values.login,
-							values.password
-						)
-					)}>
-					<div class='mb-4'>
+					className='space-y-6'
+					onSubmit={form.onSubmit((values) => {
+						console.log(values);
+						login(values.email, values.password);
+					})}>
+					<div className='mb-4'>
 						<label
-							class='block text-grey-darker text-sm font-bold mb-2'
-							for='login'>
-							Pseudo
+							className='block text-grey-darker text-sm font-bold mb-2'
+							htmlFor='email'>
+							Email
 						</label>
 						<input
-							class='shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker'
-							id='login'
+							className='shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker'
+							id='email'
 							type='text'
-							placeholder='pseudo'
-							required
+							placeholder='Email'
+							{...form.getInputProps('email')}
 						/>
 					</div>
-					<div class='mb-6'>
+					<div className='mb-6'>
 						<label
-							class='block text-grey-darker text-sm font-bold mb-2'
-							for='password'>
+							className='block text-grey-darker text-sm font-bold mb-2'
+							htmlFor='password'>
 							Mot de passe
 						</label>
 						<input
-							class='shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3'
+							className='shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3'
 							id='password'
 							type='password'
 							placeholder='••••••••'
-							required
+							{...form.getInputProps('password')}
 						/>
 					</div>
-					<div class='flex items-center justify-between'>
+					<div className='flex items-center justify-between'>
 						<button
-							class='text-sm leading-5 text-center text-white transition-colors bg-gray-500 hover:bg-blue-600 font-bold py-2 px-4 rounded'
-							type='button'>
+							className='text-sm leading-5 text-center text-white transition-colors bg-gray-500 hover:bg-blue-600 font-bold py-2 px-4 rounded'
+							type='submit'>
 							Connexion
 						</button>
 						<button
-							onClick={signInWithGoogle}
-							class='text-3xl leading-5 text-center text-white-500 transition-colors bg-white-500 hover:bg-blue-600 font-bold py-2 px-4 rounded'
-							type='submit'>
+							onClick={loginWithGoogle}
+							className='text-3xl leading-5 text-center text-white-500 transition-colors bg-white-500 hover:bg-blue-600 font-bold py-2 px-4 rounded'
+							type='button'>
 							<FcGoogle />
 						</button>
 					</div>
