@@ -3,9 +3,12 @@ import { Transition } from '@headlessui/react';
 import { Link } from 'react-router-dom';
 import Logo from '../../../assets/logo.svg';
 import { AiOutlineMenu, AiOutlineCloseCircle } from 'react-icons/ai';
+import { useAuth } from '../../../services/AuthProvider';
+import LoginControl from '../../LoginControl/LoginControl';
 
 const Navbar = () => {
 	const [isOpen, setIsOpen] = useState(false);
+	const { logout, authed } = useAuth();
 
 	return (
 		<>
@@ -25,18 +28,14 @@ const Navbar = () => {
 										className=' text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'>
 										Accueil
 									</Link>
-
-									<Link
-										to='/favoris'
-										className='text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'>
-										Favoris
-									</Link>
-
-									<Link
-										class='block w-1/2 px-3 py-2 mx-1 text-sm font-medium leading-5 text-center text-white transition-colors duration-200 transform bg-gray-500 rounded-md hover:bg-blue-600 md:mx-2 md:w-auto'
-										to='/connexion'>
-										Connexion
-									</Link>
+									{authed ? (
+										<Link
+											to='/favoris'
+											className='text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'>
+											Favoris
+										</Link>
+									) : null}
+									<LoginControl />
 									<Link
 										class='block w-1/2 px-3 py-2 mx-1 text-sm font-medium leading-5 text-center text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-600 md:mx-0 md:w-auto'
 										to='/inscription'>
@@ -75,18 +74,15 @@ const Navbar = () => {
 									className='text-black-300 hover:bg-gray-700 hover:text-white text-white block px-3 py-2 rounded-md text-base font-medium'>
 									Accueil
 								</Link>
-
-								<Link
-									onClick={isOpen}
-									to='/favoris'
-									className='text-black-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'>
-									Favoris
-								</Link>
-								<Link
-									class='block w-1/2 px-3 py-2 mx-1 text-sm font-medium leading-5 text-center text-white transition-colors duration-200 transform bg-gray-500 rounded-md hover:bg-blue-600 md:mx-2 md:w-auto'
-									to='/connexion'>
-									Connexion
-								</Link>
+								{authed ? (
+									<Link
+										onClick={isOpen}
+										to='/favoris'
+										className='text-black-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'>
+										Favoris
+									</Link>
+								) : null}
+								<LoginControl />
 								<Link
 									class='block w-1/2 px-3 py-2 mx-1 text-sm font-medium leading-5 text-center text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-600 md:mx-0 md:w-auto'
 									to='/inscription'>
