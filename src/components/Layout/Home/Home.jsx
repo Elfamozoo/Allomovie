@@ -20,15 +20,15 @@ const Home = () => {
 			<div className='container mx-auto'>
 				<div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4'>
 					{popular.map((series) => (
-						<div className='mx-auto max-w-xs overflow-hidden rounded-xl w-96 h-96'>
+						<div className='mx-auto max-w-xs overflow-hidden rounded-xl'>
 							<div className='px-4 py-2'>
-								<h1 className='text-3xl font-bold uppercase text-gray-800 dark:text-white'>
+								<h1 className='text-xl font-bold uppercase text-gray-800 dark:text-white'>
 									{series.name}
 								</h1>
 							</div>
 
 							<img
-								className='rounded-t-xl'
+								className='rounded-t-xl h-96'
 								src={API_IMAGE + series.poster_path}
 								alt={series.name}
 							/>
