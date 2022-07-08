@@ -1,32 +1,38 @@
 import React, { useEffect, useState } from 'react';
 import { fetchPopularTvSeries } from '../../../services/tmdbApi';
 const { VITE_TMDB_API_IMAGE: API_IMAGE } = import.meta.env;
+import Pagination from '../../Pagination/Pagination';
 
 const Home = () => {
 	const [popular, setPopular] = useState([]);
+	const [page, setPage] = useState(1);
+
+	const handleButtonPrevious = () => {
+		console.log(page);
+		setPage(page - 1);
+	};
+
+	const handleButtonNext = () => {
+		console.log(page);
+		setPage(page + 1);
+	};
+
 	const handleFetchPopularTvSeries = async () => {
-		const results = await fetchPopularTvSeries();
-		setPopular(results);
+		const data = await fetchPopularTvSeries(page);
+		console.log(data.total_pages);
+		setPopular(data.results);
 	};
 
 	useEffect(() => {
 		handleFetchPopularTvSeries();
-	}, []);
-
-	console.log(popular);
+	}, [page]);
 
 	return (
 		<>
-			<div className='container mx-auto'>
+			<div className='container mx-auto py-4 '>
 				<div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4'>
 					{popular.map((series) => (
 						<div className='mx-auto max-w-xs overflow-hidden rounded-xl'>
-							<div className='px-4 py-2'>
-								<h1 className='text-xl font-bold uppercase text-gray-800 dark:text-white'>
-									{series.name}
-								</h1>
-							</div>
-
 							<img
 								className='rounded-t-xl h-96'
 								src={API_IMAGE + series.poster_path}
@@ -43,6 +49,10 @@ const Home = () => {
 						</div>
 					))}
 				</div>
+				<Pagination
+					handleButtonPrevious={handleButtonPrevious}
+					handleButtonNext={handleButtonNext}
+				/>
 			</div>
 		</>
 	);
