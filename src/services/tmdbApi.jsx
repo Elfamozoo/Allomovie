@@ -7,10 +7,10 @@ const {
 } = import.meta.env;
 const { VITE_TMDB_API_IMAGE: API_IMAGE } = import.meta.env;
 
-export const fetchPopularTvSeries = () => {
+export const fetchPopularTvSeries = (page) => {
 	return axios
 		.get(`${API_URL_BASE}${API_TV_POPULAR}`, {
-			params: { api_key: API_TMDB, language: API_LANGUE },
+			params: { api_key: API_TMDB, language: API_LANGUE, page: page },
 		})
-		.then((res) => res.data.results);
+		.then((res) => res.data);
 };
