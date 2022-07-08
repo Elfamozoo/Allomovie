@@ -8,13 +8,11 @@ const Home = () => {
 	const [page, setPage] = useState(1);
 
 	const handleButtonPrevious = () => {
-		console.log(page);
-		setPage(page - 1);
+		setPage(page == 1 ? 1 : page - 1);
 	};
 
 	const handleButtonNext = () => {
-		console.log(page);
-		setPage(page + 1);
+		setPage(page == 500 ? 500 : page + 1);
 	};
 
 	const handleFetchPopularTvSeries = async () => {
@@ -27,6 +25,7 @@ const Home = () => {
 		handleFetchPopularTvSeries();
 	}, [page]);
 
+	console.log(page);
 	return (
 		<>
 			<div className='container mx-auto py-4 '>
