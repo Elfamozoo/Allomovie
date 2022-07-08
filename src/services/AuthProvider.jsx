@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
 
 	useEffect(() => {
 		onAuthStateChanged(auth, (user) => {
-			console.log(user);
+			// console.log(user);
 			if (user) {
 				setAuthed(true);
 			} else {

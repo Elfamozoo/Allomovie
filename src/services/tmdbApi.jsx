@@ -1,15 +1,16 @@
 import axios from 'axios';
-const { VITE_TMDB_API_KEY: API_TMDB } = import.meta.env;
-const { VITE_TMDB_API_URL_BASE: API_URL_BASE } = import.meta.env;
-const { VITE_TMDB_API_TV_POPULAR: API_TV_POPULAR } = import.meta.env;
+const {
+	VITE_TMDB_API_KEY: API_TMDB,
+	VITE_TMDB_API_URL_BASE: API_URL_BASE,
+	VITE_TMDB_API_TV_POPULAR: API_TV_POPULAR,
+	VITE_TMDB_API_LANGUE: API_LANGUE,
+} = import.meta.env;
+const { VITE_TMDB_API_IMAGE: API_IMAGE } = import.meta.env;
 
 export const fetchPopularTvSeries = () => {
-	/* Envoi d'une requête GET au point de terminaison API_URL_BASE + API_TV_POPULAR avec la clé API_TMDB. */
-	axios
+	return axios
 		.get(`${API_URL_BASE}${API_TV_POPULAR}`, {
-			params: { api_key: API_TMDB },
+			params: { api_key: API_TMDB, language: API_LANGUE },
 		})
-		.then((res) => {
-			console.log(res);
-		});
+		.then((res) => res.data.results);
 };

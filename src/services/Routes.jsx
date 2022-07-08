@@ -20,7 +20,7 @@ const Routes = (authed) => [
 	},
 	{
 		path: '/favoris',
-		element: authed ? <Favoris /> : <Navigate to='/login' />,
+		element: authed ? <Favoris /> : <Navigate to='/connexion' />,
 	},
 ];
 
