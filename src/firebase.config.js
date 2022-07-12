@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { getStorage } from "firebase/storage";
 import { useNavigate } from 'react-router-dom';
 import {
     GoogleAuthProvider,
@@ -32,6 +33,7 @@ export const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 export const auth = getAuth(app);
 const db = getFirestore(app);
+const storage = getStorage(app)
 const googleProvider = new GoogleAuthProvider();
 
 /**

@@ -4,18 +4,31 @@ import {
 	onAuthStateChanged,
 	signOut,
 	signInWithEmailAndPassword,
+	setPersistence,
+	browserLocalPersistence,
 } from 'firebase/auth';
 import { auth, signInWithGoogle } from '../firebase.config';
 
-const AuthContext = createContext(null);
+const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-	const [authed, setAuthed] = useState(false);
+	const [user, setUser] = useState({});
+	console.log(user)
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		const unsubscribe = onAuthStateChanged(auth, (currentuser) => {
+			setUser(currentuser);
+		});
+		return () => {
+			unsubscribe();
+		};
+	}, []);
+
 	const redirectAfterAuth = async () => {
 		try {
-			onAuthStateChanged(auth, (user) => {
-				if (user) {
+			onAuthStateChanged(auth, (currentuser) => {
+				if (currentuser) {
 					navigate('/');
 				} else {
 					navigate('/connexion');
@@ -27,57 +40,33 @@ export const AuthProvider = ({ children }) => {
 		}
 	};
 
-	useEffect(() => {
-		onAuthStateChanged(auth, (user) => {
-			// console.log(user);
-			if (user) {
-				setAuthed(true);
-			} else {
-				setAuthed(false);
-			}
-		});
-	}, []);
-
 	const login = async (email, password) => {
 		try {
-            console.log(auth,email,password)
-			await signInWithEmailAndPassword(auth, email, password);
-			alert('Connexion reussie ! ');
+			setPersistence(auth, browserLocalPersistence).then(() => {
+				return signInWithEmailAndPassword(auth, email, password);
+			});
+			alert('Connexion reussie !');
 		} catch (err) {
 			console.error(err);
 			alert(err.message);
 		}
 		redirectAfterAuth();
-
-		const result = onAuthStateChanged(auth);
-		if (result) {
-			setAuthed(true);
-		}
 	};
 
-	/**
-	 * Lorsque l'utilisateur clique sur le bouton, connectez-vous avec Google, puis vérifiez si
-	 * l'utilisateur est connecté, si c'est le cas, accédez à la page d'accueil, sinon, accédez à la page
-	 * de connexion.
-	 */
 	const loginWithGoogle = async () => {
-		signInWithGoogle();
+		setPersistence(auth, browserLocalPersistence).then(() => {
+			return signInWithGoogle();
+		});
 		redirectAfterAuth();
-
-		const result = onAuthStateChanged(auth);
-		if (result) {
-			setAuthed(true);
-		}
 	};
 
 	const logout = async () => {
 		signOut(auth);
-		alert('Deconnexion reussie ! ');
+		alert('Deconnexion reussie !');
 	};
 
 	return (
-		<AuthContext.Provider
-			value={{ authed, setAuthed, login, logout, loginWithGoogle }}>
+		<AuthContext.Provider value={{ user, login, logout, loginWithGoogle }}>
 			{children}
 		</AuthContext.Provider>
 	);
