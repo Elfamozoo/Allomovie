@@ -5,22 +5,22 @@ import Connexion from '../components/Connexion/Connexion';
 import Inscription from './../components/Inscription/Inscription';
 import Favoris from './../components/Favoris/Favoris';
 
-const Routes = (authed) => [
+const Routes = (user) => [
 	{
 		path: '/',
 		element: <Home />,
 	},
 	{
 		path: '/inscription',
-		element: <Inscription />,
+		element: user ? <Navigate to='/' /> : <Inscription />,
 	},
 	{
 		path: '/connexion',
-		element: <Connexion />,
+		element: user ? <Navigate to='/' /> : <Connexion />,
 	},
 	{
 		path: '/favoris',
-		element: authed ? <Favoris /> : <Navigate to='/connexion' />,
+		element: user ? <Favoris /> : <Navigate to='/connexion' />,
 	},
 ];
 

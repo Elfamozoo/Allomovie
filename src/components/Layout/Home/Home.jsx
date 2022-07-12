@@ -17,7 +17,7 @@ const Home = () => {
 
 	const handleFetchPopularTvSeries = async () => {
 		const data = await fetchPopularTvSeries(page);
-		console.log(data.total_pages);
+		// console.log(data.total_pages);
 		setPopular(data.results);
 	};
 
@@ -25,7 +25,7 @@ const Home = () => {
 		handleFetchPopularTvSeries();
 	}, [page]);
 
-	console.log(page);
+	// console.log(page);
 	return (
 		<>
 			<div className='container mx-auto py-4 '>
@@ -34,7 +34,7 @@ const Home = () => {
 						<div className='mx-auto max-w-xs overflow-hidden rounded-xl'>
 							<img
 								className='rounded-t-xl h-96'
-								src={API_IMAGE + series.poster_path}
+								src={`${API_IMAGE}${series.poster_path || series.backdrop.path }`}
 								alt={series.name}
 							/>
 							<div className='flex items-center justify-between bg-gray-900 px-4 py-2'>

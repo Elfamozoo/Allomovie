@@ -4,7 +4,8 @@ import { FcGoogle } from 'react-icons/fc';
 import { useAuth } from '../../services/AuthProvider';
 
 const Connexion = () => {
-	const { login, loginWithGoogle } = useAuth();
+	const { login, loginWithGoogle, user } = useAuth();
+
 
 	const form = useForm({
 		initialValues: {

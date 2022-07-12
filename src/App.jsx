@@ -7,8 +7,8 @@ import { useAuth } from './services/AuthProvider';
 import Routes from './services/Routes';
 
 function App() {
-	const { authed } = useAuth();
-	const routing = useRoutes(Routes(authed));
+	const { user } = useAuth();
+	const routing = useRoutes(Routes(user));
 
 	return (
 		<>

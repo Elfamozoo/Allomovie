@@ -8,7 +8,8 @@ import LoginControl from '../../LoginControl/LoginControl';
 
 const Navbar = () => {
 	const [isOpen, setIsOpen] = useState(false);
-	const { logout, authed } = useAuth();
+	const { logout, user } = useAuth();
+	console.log(user);
 
 	return (
 		<>
@@ -28,7 +29,7 @@ const Navbar = () => {
 										className=' text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'>
 										Accueil
 									</Link>
-									{authed && (
+									{user && (
 										<Link
 											to='/favoris'
 											className='text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'>
@@ -36,11 +37,13 @@ const Navbar = () => {
 										</Link>
 									)}
 									<LoginControl />
-									<Link
-										class='block w-1/2 px-3 py-2 mx-1 text-sm font-medium leading-5 text-center text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-600 md:mx-0 md:w-auto'
-										to='/inscription'>
-										inscription
-									</Link>
+									{!user && (
+										<Link
+											class='block w-1/2 px-3 py-2 mx-1 text-sm font-medium leading-5 text-center text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-600 md:mx-0 md:w-auto'
+											to='/inscription'>
+											inscription
+										</Link>
+									)}
 								</div>
 							</div>
 						</div>
@@ -74,7 +77,7 @@ const Navbar = () => {
 									className='text-black-300 hover:bg-gray-700 hover:text-white text-white block px-3 py-2 rounded-md text-base font-medium'>
 									Accueil
 								</Link>
-								{authed ? (
+								{user ? (
 									<Link
 										onClick={isOpen}
 										to='/favoris'
@@ -83,11 +86,13 @@ const Navbar = () => {
 									</Link>
 								) : null}
 								<LoginControl />
-								<Link
-									className='block w-1/2 px-3 py-2 mx-1 text-sm font-medium leading-5 text-center text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-600 md:mx-0 md:w-auto'
-									to='/inscription'>
-									inscription
-								</Link>
+								{!user && (
+									<Link
+										className='block w-1/2 px-3 py-2 mx-1 text-sm font-medium leading-5 text-center text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-600 md:mx-0 md:w-auto'
+										to='/inscription'>
+										inscription
+									</Link>
+								)}
 							</div>
 						</div>
 					)}
