@@ -13,7 +13,6 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
 	const [user, setUser] = useState({});
-	console.log(user)
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -25,7 +24,7 @@ export const AuthProvider = ({ children }) => {
 		};
 	}, []);
 
-	const redirectAfterAuth = async () => {
+	const redirectAfterAuth = () => {
 		try {
 			onAuthStateChanged(auth, (currentuser) => {
 				if (currentuser) {
@@ -40,7 +39,7 @@ export const AuthProvider = ({ children }) => {
 		}
 	};
 
-	const login = async (email, password) => {
+	const login = (email, password) => {
 		try {
 			setPersistence(auth, browserLocalPersistence).then(() => {
 				return signInWithEmailAndPassword(auth, email, password);
@@ -53,14 +52,14 @@ export const AuthProvider = ({ children }) => {
 		redirectAfterAuth();
 	};
 
-	const loginWithGoogle = async () => {
+	const loginWithGoogle = () => {
 		setPersistence(auth, browserLocalPersistence).then(() => {
 			return signInWithGoogle();
 		});
 		redirectAfterAuth();
 	};
 
-	const logout = async () => {
+	const logout = () => {
 		signOut(auth);
 		alert('Deconnexion reussie !');
 	};
@@ -72,7 +71,4 @@ export const AuthProvider = ({ children }) => {
 	);
 };
 
-/**
- * Il renvoie la valeur de l'objet AuthContext
- */
 export const useAuth = () => useContext(AuthContext);
