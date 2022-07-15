@@ -17,15 +17,21 @@ const Home = () => {
 
 	const handleFetchPopularTvSeries = async () => {
 		const data = await fetchPopularTvSeries(page);
-		// console.log(data.total_pages);
 		setPopular(data.results);
 	};
+
+	const addFavorite = () => {
+		alert("fav")
+	}
 
 	useEffect(() => {
 		handleFetchPopularTvSeries();
 	}, [page]);
 
-	// console.log(page);
+	useEffect(() => {
+		window.scrollTo({top: 0, left: 0, behavior: 'smooth' });
+	  }, [page])
+
 	return (
 		<>
 			<div className='container mx-auto py-4 '>
@@ -34,14 +40,16 @@ const Home = () => {
 						<div className='mx-auto max-w-xs overflow-hidden rounded-xl'>
 							<img
 								className='rounded-t-xl h-96'
-								src={`${API_IMAGE}${series.poster_path || series.backdrop.path }`}
+								src={`${API_IMAGE}${
+									series.poster_path || series.backdrop.path
+								}`}
 								alt={series.name}
 							/>
 							<div className='flex items-center justify-between bg-gray-900 px-4 py-2'>
 								<h1 className='text-lg font-bold text-white'>
 									{series.vote_average}
 								</h1>
-								<button className='transform rounded bg-white px-2 py-1 text-xs font-semibold uppercase text-gray-900 transition-colors duration-200 hover:bg-gray-200 focus:bg-gray-400 focus:outline-none'>
+								<button onClick={addFavorite} className='transform rounded bg-white px-2 py-1 text-xs font-semibold uppercase text-gray-900 transition-colors duration-200 hover:bg-gray-200 focus:bg-gray-400 focus:outline-none'>
 									Favoris
 								</button>
 							</div>
